@@ -1,0 +1,117 @@
+{
+  "title": "Choose MalaMaster's visual world",
+  "question": "The roll assigned Kopitiam Melamine & Basket. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Kopitiam Melamine & Basket",
+      "kicker": "THE ROLL",
+      "lineage": "Hawker-centre melamine bowls and the red plastic mala basket",
+      "thesis": "The bowl you are filling is the interface: jade melamine ground, red woven basket, weight read off the scale.",
+      "palette": ["#2f7d63", "#e9f1ea", "#d8333a", "#1d2420", "#f2c230"],
+      "materials": ["glazed melamine", "woven plastic basket", "stainless tongs"],
+      "viewport": "Top: big scale readout (grams, S$) over a red basket that fills by tier colour; below: tier tabs and ingredient tiles with +/- tongs.",
+      "risk": "Green-and-red can read festive or muddy if the jade is not deep and the red is not reserved for the basket.",
+      "raised": [
+        {"from": "challenger-splitflap", "raise": "Weight and price sit in fixed tabular cells that change in place, never reflowing."},
+        {"from": "challenger-saville", "raise": "Each price tier owns one colour used everywhere: tile edge, basket fill, receipt line."},
+        {"from": "challenger-yellow", "raise": "One monumental number per screen: the scale weight, everything else secondary."},
+        {"from": "challenger-wallet", "raise": "Orders stamp their outcome (Spot on / Over / Under) onto the order chit; nothing disappears."}
+      ],
+      "html": ".impeccable/mocks/decision/assigned.html",
+      "htmlFrame": "390x844"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "Stall Price Board",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Laminated tier price boards over steel ingredient trays",
+      "thesis": "The stall's own laminated price board, chili-oil red header, ingredients in steel trays by tier.",
+      "palette": ["#b3201c", "#fff4e0", "#c8ccce", "#231a17", "#ffb000"],
+      "materials": ["laminated card", "stainless trays", "chili oil"],
+      "viewport": "Red header with running total; tier rows as steel trays of ingredient tiles; sticky price board strip.",
+      "risk": "The literal reading of a mala app; most runs in this category land on red-and-chili.",
+      "html": ".impeccable/mocks/decision/model-pick.html",
+      "htmlFrame": "390x844"
+    },
+    {
+      "id": "challenger-consumer",
+      "kind": "challenger",
+      "catalogId": "digital-design-canon-warm-consumer-app-surface",
+      "label": "Warm Consumer App",
+      "verdict": "competitive",
+      "lineage": "Friendly consumer app cards",
+      "thesis": "Soft cards on a warm ground, one action colour only where you can press.",
+      "palette": ["#f6efe6", "#ffffff", "#e2552d", "#2a2522"],
+      "materials": ["soft cards", "rounded sans"],
+      "viewport": "Total card on top, ingredient cards in one column, bottom bar for Practice / Orders / Board.",
+      "case": "Holds clarity, easy one-handed; loses on audience identification: nothing says mala stall.",
+      "risk": "Could be any food-delivery app.",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-warm-consumer-app-surface-hero.webp",
+      "html": ".impeccable/mocks/decision/challenger-consumer.html",
+      "htmlFrame": "390x844"
+    },
+    {
+      "id": "challenger-characters",
+      "kind": "challenger",
+      "catalogId": "pop-culture-shelf-character-goods-catalog",
+      "label": "Ingredient Character Roster",
+      "verdict": "competitive",
+      "lineage": "Character goods catalogs",
+      "thesis": "Every ingredient is a little character with a name plate and one line about its weight.",
+      "palette": ["#fde2e4", "#e2f0cb", "#ffffff", "#ff6f59", "#3d3d3d"],
+      "materials": ["pastel cells", "white keylines", "bubble type"],
+      "viewport": "A ranked roster grid of ingredient characters; tap to add; total pinned at top.",
+      "case": "Strong for a friends game; loses on clarity: cute cells hide the weight numbers.",
+      "risk": "Drawing 30 ingredient characters well is real art work; weak art cheapens it.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-character-goods-catalog-hero.webp",
+      "html": ".impeccable/mocks/decision/challenger-characters.html",
+      "htmlFrame": "390x844"
+    },
+    {
+      "id": "challenger-yellow", "kind": "challenger", "catalogId": "wayfinding-cartography-signage-terminal-yellow-wayfinding",
+      "label": "Terminal Yellow Wayfinding", "verdict": "declined", "lineage": "Airport sign bands",
+      "thesis": "One yellow band, one next decision.", "palette": ["#ffd200", "#111111", "#ffffff"], "materials": ["sign panels"],
+      "viewport": "Monumental weight on a yellow band.", "risk": "Feels like an airport, not a hawker centre.",
+      "case": "Clear, but players do not see themselves in an airport.", "kept": "One monumental number per screen."
+    },
+    {
+      "id": "challenger-splitflap", "kind": "challenger", "catalogId": "signals-instruments-split-flap-concourse",
+      "label": "Split-Flap Concourse", "verdict": "declined", "lineage": "Rail departure boards",
+      "thesis": "Totals flip like a departure board.", "palette": ["#111111", "#f5f5f5", "#ffb300"], "materials": ["flap tiles"],
+      "viewport": "Order queue as board rows.", "risk": "Costume of a station.",
+      "case": "No mala identity; numbers clear.", "kept": "Fixed cells that change in place."
+    },
+    {
+      "id": "challenger-saville", "kind": "challenger", "catalogId": "brand-identity-canon-saville-catalog-sleeve",
+      "label": "Catalog Sleeve Code", "verdict": "declined", "lineage": "Factory records sleeves",
+      "thesis": "Colour blocks stand in for words.", "palette": ["#0b0b0b", "#ffffff", "#e4572e", "#29a19c"], "materials": ["matte black"],
+      "viewport": "A coded colour strip of your bowl.", "risk": "Too cryptic for a quick game.",
+      "case": "Cryptic for friends at a stall.", "kept": "Tier colour as a strict code."
+    },
+    {
+      "id": "challenger-wallet", "kind": "challenger", "catalogId": "vernacular-ephemera-jet-age-ticket-wallet",
+      "label": "Jet-Age Ticket Wallet", "verdict": "declined", "lineage": "Airline coupons",
+      "thesis": "Orders as tear-off coupons.", "palette": ["#1a2a5a", "#c8102e", "#ffffff"], "materials": ["coupon stock"],
+      "viewport": "A stack of order coupons.", "risk": "Travel, not food.",
+      "case": "Wrong world for mala.", "kept": "Outcomes stamp onto the order."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code", "toggle": false},
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "The category standard",
+    "thesis": "A clean casual-game UI: white cards, one bright accent, big score.",
+    "palette": ["#ffffff", "#111827", "#ef4444"],
+    "materials": ["clean grid", "emoji-free icons"],
+    "viewport": "Score header, ingredient grid, bottom tabs.",
+    "risk": "Indistinguishable from every other tap game.",
+    "html": ".impeccable/mocks/decision/canon.html",
+    "htmlFrame": "390x844"
+  },
+  "steer": true
+}

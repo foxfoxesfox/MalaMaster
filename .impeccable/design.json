@@ -1,0 +1,500 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-21T14:33:45.427Z",
+  "title": "Design System: MalaMaster",
+  "extensions": {
+    "colorMeta": {
+      "chili": {
+        "role": "primary",
+        "displayName": "Chili Oil Red",
+        "canonical": "#b3201c",
+        "tonalRamp": [
+          "oklch(15.0% 0.183 28.1)",
+          "oklch(26.4% 0.183 28.1)",
+          "oklch(37.9% 0.183 28.1)",
+          "oklch(49.3% 0.183 28.1)",
+          "oklch(60.7% 0.183 28.1)",
+          "oklch(72.1% 0.183 28.1)",
+          "oklch(83.6% 0.183 28.1)",
+          "oklch(95.0% 0.183 28.1)"
+        ]
+      },
+      "chili-deep": {
+        "role": "primary",
+        "displayName": "Deep Chili",
+        "canonical": "#8e1714",
+        "tonalRamp": [
+          "oklch(15.0% 0.154 28.0)",
+          "oklch(26.4% 0.154 28.0)",
+          "oklch(37.9% 0.154 28.0)",
+          "oklch(49.3% 0.154 28.0)",
+          "oklch(60.7% 0.154 28.0)",
+          "oklch(72.1% 0.154 28.0)",
+          "oklch(83.6% 0.154 28.0)",
+          "oklch(95.0% 0.154 28.0)"
+        ]
+      },
+      "basket": {
+        "role": "primary",
+        "displayName": "Plastic Basket Red",
+        "canonical": "#c8262c",
+        "tonalRamp": [
+          "oklch(15.0% 0.196 25.4)",
+          "oklch(26.4% 0.196 25.4)",
+          "oklch(37.9% 0.196 25.4)",
+          "oklch(49.3% 0.196 25.4)",
+          "oklch(60.7% 0.196 25.4)",
+          "oklch(72.1% 0.196 25.4)",
+          "oklch(83.6% 0.196 25.4)",
+          "oklch(95.0% 0.196 25.4)"
+        ]
+      },
+      "basket-slot": {
+        "role": "primary",
+        "displayName": "Basket Slot Red",
+        "canonical": "#a51e23",
+        "tonalRamp": [
+          "oklch(15.0% 0.170 25.3)",
+          "oklch(26.4% 0.170 25.3)",
+          "oklch(37.9% 0.170 25.3)",
+          "oklch(49.3% 0.170 25.3)",
+          "oklch(60.7% 0.170 25.3)",
+          "oklch(72.1% 0.170 25.3)",
+          "oklch(83.6% 0.170 25.3)",
+          "oklch(95.0% 0.170 25.3)"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Turmeric Amber",
+        "canonical": "#ffb000",
+        "tonalRamp": [
+          "oklch(15.0% 0.170 76.4)",
+          "oklch(26.4% 0.170 76.4)",
+          "oklch(37.9% 0.170 76.4)",
+          "oklch(49.3% 0.170 76.4)",
+          "oklch(60.7% 0.170 76.4)",
+          "oklch(72.1% 0.170 76.4)",
+          "oklch(83.6% 0.170 76.4)",
+          "oklch(95.0% 0.170 76.4)"
+        ]
+      },
+      "cream": {
+        "role": "neutral",
+        "displayName": "Laminated Cream",
+        "canonical": "#fff4e0",
+        "tonalRamp": [
+          "oklch(15.0% 0.029 82.6)",
+          "oklch(26.4% 0.029 82.6)",
+          "oklch(37.9% 0.029 82.6)",
+          "oklch(49.3% 0.029 82.6)",
+          "oklch(60.7% 0.029 82.6)",
+          "oklch(72.1% 0.029 82.6)",
+          "oklch(83.6% 0.029 82.6)",
+          "oklch(95.0% 0.029 82.6)"
+        ]
+      },
+      "cream-2": {
+        "role": "neutral",
+        "displayName": "Aged Cream",
+        "canonical": "#f6e6c8",
+        "tonalRamp": [
+          "oklch(15.0% 0.043 83.2)",
+          "oklch(26.4% 0.043 83.2)",
+          "oklch(37.9% 0.043 83.2)",
+          "oklch(49.3% 0.043 83.2)",
+          "oklch(60.7% 0.043 83.2)",
+          "oklch(72.1% 0.043 83.2)",
+          "oklch(83.6% 0.043 83.2)",
+          "oklch(95.0% 0.043 83.2)"
+        ]
+      },
+      "chip-white": {
+        "role": "neutral",
+        "displayName": "Chip White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.4% 0.000 89.9)",
+          "oklch(37.9% 0.000 89.9)",
+          "oklch(49.3% 0.000 89.9)",
+          "oklch(60.7% 0.000 89.9)",
+          "oklch(72.1% 0.000 89.9)",
+          "oklch(83.6% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#231a17",
+        "tonalRamp": [
+          "oklch(15.0% 0.016 39.2)",
+          "oklch(26.4% 0.016 39.2)",
+          "oklch(37.9% 0.016 39.2)",
+          "oklch(49.3% 0.016 39.2)",
+          "oklch(60.7% 0.016 39.2)",
+          "oklch(72.1% 0.016 39.2)",
+          "oklch(83.6% 0.016 39.2)",
+          "oklch(95.0% 0.016 39.2)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Faded Ink",
+        "canonical": "#5a4a44",
+        "tonalRamp": [
+          "oklch(15.0% 0.024 41.6)",
+          "oklch(26.4% 0.024 41.6)",
+          "oklch(37.9% 0.024 41.6)",
+          "oklch(49.3% 0.024 41.6)",
+          "oklch(60.7% 0.024 41.6)",
+          "oklch(72.1% 0.024 41.6)",
+          "oklch(83.6% 0.024 41.6)",
+          "oklch(95.0% 0.024 41.6)"
+        ]
+      },
+      "steel-hi": {
+        "role": "neutral",
+        "displayName": "Steel Highlight",
+        "canonical": "#dfe2e4",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 236.5)",
+          "oklch(26.4% 0.004 236.5)",
+          "oklch(37.9% 0.004 236.5)",
+          "oklch(49.3% 0.004 236.5)",
+          "oklch(60.7% 0.004 236.5)",
+          "oklch(72.1% 0.004 236.5)",
+          "oklch(83.6% 0.004 236.5)",
+          "oklch(95.0% 0.004 236.5)"
+        ]
+      },
+      "steel-lo": {
+        "role": "neutral",
+        "displayName": "Steel Shadow",
+        "canonical": "#b4babd",
+        "tonalRamp": [
+          "oklch(15.0% 0.008 228.9)",
+          "oklch(26.4% 0.008 228.9)",
+          "oklch(37.9% 0.008 228.9)",
+          "oklch(49.3% 0.008 228.9)",
+          "oklch(60.7% 0.008 228.9)",
+          "oklch(72.1% 0.008 228.9)",
+          "oklch(83.6% 0.008 228.9)",
+          "oklch(95.0% 0.008 228.9)"
+        ]
+      },
+      "ok": {
+        "role": "tertiary",
+        "displayName": "Stamp Green",
+        "canonical": "#2f7a3a",
+        "tonalRamp": [
+          "oklch(15.0% 0.122 146.3)",
+          "oklch(26.4% 0.122 146.3)",
+          "oklch(37.9% 0.122 146.3)",
+          "oklch(49.3% 0.122 146.3)",
+          "oklch(60.7% 0.122 146.3)",
+          "oklch(72.1% 0.122 146.3)",
+          "oklch(83.6% 0.122 146.3)",
+          "oklch(95.0% 0.122 146.3)"
+        ]
+      },
+      "tier-veg": {
+        "role": "tertiary",
+        "displayName": "Vegetables swatch",
+        "canonical": "#4f8a3a",
+        "tonalRamp": [
+          "oklch(15.0% 0.129 138.2)",
+          "oklch(26.4% 0.129 138.2)",
+          "oklch(37.9% 0.129 138.2)",
+          "oklch(49.3% 0.129 138.2)",
+          "oklch(60.7% 0.129 138.2)",
+          "oklch(72.1% 0.129 138.2)",
+          "oklch(83.6% 0.129 138.2)",
+          "oklch(95.0% 0.129 138.2)"
+        ]
+      },
+      "tier-mush": {
+        "role": "tertiary",
+        "displayName": "Mushrooms swatch",
+        "canonical": "#8a6a45",
+        "tonalRamp": [
+          "oklch(15.0% 0.066 69.8)",
+          "oklch(26.4% 0.066 69.8)",
+          "oklch(37.9% 0.066 69.8)",
+          "oklch(49.3% 0.066 69.8)",
+          "oklch(60.7% 0.066 69.8)",
+          "oklch(72.1% 0.066 69.8)",
+          "oklch(83.6% 0.066 69.8)",
+          "oklch(95.0% 0.066 69.8)"
+        ]
+      },
+      "tier-tofu": {
+        "role": "tertiary",
+        "displayName": "Tofu & balls swatch",
+        "canonical": "#d9a21b",
+        "tonalRamp": [
+          "oklch(15.0% 0.147 83.0)",
+          "oklch(26.4% 0.147 83.0)",
+          "oklch(37.9% 0.147 83.0)",
+          "oklch(49.3% 0.147 83.0)",
+          "oklch(60.7% 0.147 83.0)",
+          "oklch(72.1% 0.147 83.0)",
+          "oklch(83.6% 0.147 83.0)",
+          "oklch(95.0% 0.147 83.0)"
+        ]
+      },
+      "tier-meat": {
+        "role": "tertiary",
+        "displayName": "Meat swatch",
+        "canonical": "#c4553a",
+        "tonalRamp": [
+          "oklch(15.0% 0.149 34.9)",
+          "oklch(26.4% 0.149 34.9)",
+          "oklch(37.9% 0.149 34.9)",
+          "oklch(49.3% 0.149 34.9)",
+          "oklch(60.7% 0.149 34.9)",
+          "oklch(72.1% 0.149 34.9)",
+          "oklch(83.6% 0.149 34.9)",
+          "oklch(95.0% 0.149 34.9)"
+        ]
+      },
+      "tier-prem": {
+        "role": "tertiary",
+        "displayName": "Premium swatch",
+        "canonical": "#6b3fa0",
+        "tonalRamp": [
+          "oklch(15.0% 0.152 301.7)",
+          "oklch(26.4% 0.152 301.7)",
+          "oklch(37.9% 0.152 301.7)",
+          "oklch(49.3% 0.152 301.7)",
+          "oklch(60.7% 0.152 301.7)",
+          "oklch(72.1% 0.152 301.7)",
+          "oklch(83.6% 0.152 301.7)",
+          "oklch(95.0% 0.152 301.7)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Readout",
+        "purpose": "Live gram readout, order target, score."
+      },
+      "headline": {
+        "displayName": "Panel title",
+        "purpose": "Panel headings: Top 10, Round total, Orders intro."
+      },
+      "title": {
+        "displayName": "Piece name",
+        "purpose": "Chip names (16px), tray heading (15px), order chit rules line (19px amber)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Panel paragraphs, max 65ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Pills, price cells, flat-rate bar, buttons, recap detail lines."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-chip",
+        "value": "0 1px 1px rgba(35, 26, 23, 0.12), 0 4px 10px rgba(35, 26, 23, 0.1)",
+        "purpose": "Chips resting on the tray; name-entry card."
+      },
+      {
+        "name": "held-piece",
+        "value": "0 2px 4px rgba(35, 26, 23, 0.15), 0 14px 28px rgba(35, 26, 23, 0.22)",
+        "purpose": "Drag ghost only."
+      },
+      {
+        "name": "tray-bevel",
+        "value": "inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -2px 4px rgba(0, 0, 0, 0.12)",
+        "purpose": "Steel tray inset bevel."
+      },
+      {
+        "name": "basket-cast",
+        "value": "0 -6px 18px rgba(35, 26, 23, 0.18)",
+        "purpose": "Basket dock casting upward."
+      },
+      {
+        "name": "basket-hot",
+        "value": "0 -6px 18px rgba(35, 26, 23, 0.18), inset 0 0 0 3px var(--amber)",
+        "purpose": "Basket while a held piece is over it (plus translateY(-4px))."
+      }
+    ],
+    "motion": [
+      {
+        "name": "press",
+        "value": "100ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Press feedback: scale(0.96) on :active for chips, pieces, buttons, mode and pricing pills, strip cells, the Empty link."
+      },
+      {
+        "name": "ease-smooth-out",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Easing for all CSS state changes and keyframes."
+      },
+      {
+        "name": "state-change",
+        "value": "150ms var(--ease-smooth-out)",
+        "purpose": "Pill and strip-cell colour swap; basket hot lift."
+      },
+      {
+        "name": "thud",
+        "value": "180ms keyframes translateY(3px) to none",
+        "purpose": "Basket settle on a successful drop."
+      },
+      {
+        "name": "stamp",
+        "value": "220ms keyframes rotate(-5deg) scale(1.25), opacity 0 to rest",
+        "purpose": "Result stamp landing."
+      },
+      {
+        "name": "spring-home",
+        "value": "critically damped spring, damping 1, response 0.35s, velocity handoff capped at 2500px/s",
+        "purpose": "Drag ghost returning to its chip when dropped outside the basket."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation and transition durations 1ms; ghost hides instead of springing",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "column-max",
+        "value": "480px"
+      }
+    ],
+    "touchTargets": [
+      {
+        "name": "control",
+        "value": "44px",
+        "purpose": "Mode and pricing pills, budget input, Empty link."
+      },
+      {
+        "name": "strip-cell",
+        "value": "56px"
+      },
+      {
+        "name": "basket-piece",
+        "value": "40px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Default pill button: Play again.",
+      "html": "<button class=\"ds-btn\">Play again</button>",
+      "css": ".ds-btn { border: 2px solid var(--ink, #231a17); background: var(--cream, #fff4e0); color: var(--ink, #231a17); border-radius: 999px; padding: 9px 18px; font-family: \"Archivo Variable\", system-ui, sans-serif; font-weight: 800; font-size: 15px; cursor: pointer; transition: transform 100ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-btn:active { transform: scale(0.96); } .ds-btn:focus-visible { outline: 2px solid #231a17; outline-offset: 2px; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ink pill for the main action: Serve, Start a round, Next customer.",
+      "html": "<button class=\"ds-btn-primary\">Start a round</button>",
+      "css": ".ds-btn-primary { border: 2px solid var(--ink, #231a17); background: var(--ink, #231a17); color: var(--cream, #fff4e0); border-radius: 999px; padding: 9px 18px; font-family: \"Archivo Variable\", system-ui, sans-serif; font-weight: 800; font-size: 15px; cursor: pointer; transition: transform 100ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-btn-primary:active { transform: scale(0.96); } .ds-btn-primary:focus-visible { outline: 2px solid #231a17; outline-offset: 2px; } .ds-btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }"
+    },
+    {
+      "name": "Mode Pills",
+      "kind": "nav",
+      "refersTo": "mode-pill",
+      "description": "Signboard mode switch on a deep-chili track.",
+      "html": "<div class=\"ds-board\"><nav class=\"ds-modes\"><button aria-pressed=\"true\">Practice</button><button aria-pressed=\"false\">Orders</button><button aria-pressed=\"false\">Top 10</button></nav></div>",
+      "css": ".ds-board { background: #b3201c; color: #fff4e0; padding: 12px 16px; font-family: \"Archivo Variable\", system-ui, sans-serif; } .ds-modes { display: inline-flex; background: #8e1714; border-radius: 999px; padding: 3px; } .ds-modes button { border: 0; background: none; color: inherit; font: inherit; border-radius: 999px; padding: 0 11px; min-height: 44px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background-color 150ms cubic-bezier(0.22, 1, 0.36, 1), color 150ms cubic-bezier(0.22, 1, 0.36, 1), transform 100ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-modes button:active { transform: scale(0.96); } .ds-modes button[aria-pressed=\"true\"] { background: #fff4e0; color: #231a17; } .ds-modes button:focus-visible { outline: 2px solid #fff4e0; outline-offset: 2px; }"
+    },
+    {
+      "name": "Price Strip",
+      "kind": "nav",
+      "refersTo": "strip-cell",
+      "description": "Ink-ruled laminated price board; its cells are the tray tablist.",
+      "html": "<div class=\"ds-strip\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\"><i style=\"background:#4f8a3a\"></i>Veg<b>1.35</b></button><button role=\"tab\" aria-selected=\"false\"><i style=\"background:#8a6a45\"></i>Mush<b>2.10</b></button><button role=\"tab\" aria-selected=\"false\"><i style=\"background:#d9a21b\"></i>Tofu<b>2.60</b></button><button role=\"tab\" aria-selected=\"false\"><i style=\"background:#c4553a\"></i>Meat<b>2.95</b></button><button role=\"tab\" aria-selected=\"false\"><i style=\"background:#6b3fa0\"></i>Prem<b>3.60</b></button></div>",
+      "css": ".ds-strip { display: flex; background: #fff; border-bottom: 2px solid #231a17; color: #231a17; font-family: \"Archivo Variable\", system-ui, sans-serif; font-variant-numeric: tabular-nums; } .ds-strip button { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; padding: 6px 2px; min-height: 56px; font: inherit; font-size: 12px; font-weight: 600; color: inherit; border: 0; border-right: 1px solid #231a17; background: none; cursor: pointer; transition: background-color 150ms cubic-bezier(0.22, 1, 0.36, 1), color 150ms cubic-bezier(0.22, 1, 0.36, 1), transform 100ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-strip button:last-child { border-right: 0; } .ds-strip button:active { transform: scale(0.96); } .ds-strip button[aria-selected=\"true\"] { background: #231a17; color: #fff4e0; } .ds-strip button:focus-visible { outline: 2px solid #231a17; outline-offset: -4px; } .ds-strip b { font-size: 15px; } .ds-strip i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }"
+    },
+    {
+      "name": "Steel Tray with Chips",
+      "kind": "chip",
+      "refersTo": "ingredient-chip",
+      "description": "Steel tray holding white draggable ingredient chips; count badge once in basket.",
+      "html": "<div class=\"ds-tray\"><button class=\"ds-chip\"><span class=\"n\">Lotus root</span><span class=\"w\">~15g slice</span><span class=\"c\">×2</span></button><button class=\"ds-chip\"><span class=\"n\">Potato</span><span class=\"w\">~12g slice</span></button></div>",
+      "css": ".ds-tray { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; padding: 10px; border-radius: 10px; background: linear-gradient(180deg, #dfe2e4, #b4babd); box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -2px 4px rgba(0,0,0,0.12); font-family: \"Archivo Variable\", system-ui, sans-serif; } .ds-chip { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; border: 0; border-radius: 8px; background: #fff; color: #231a17; font: inherit; padding: 12px 12px 11px; min-height: 64px; cursor: grab; box-shadow: 0 1px 1px rgba(35,26,23,0.12), 0 4px 10px rgba(35,26,23,0.1); transition: transform 100ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-chip:active { transform: scale(0.96); cursor: grabbing; } .ds-chip:focus-visible { outline: 2px solid #231a17; outline-offset: 2px; } .ds-chip .n { font-size: 16px; font-weight: 750; } .ds-chip .w { font-size: 13px; color: #5a4a44; } .ds-chip .c { position: absolute; top: 8px; right: 8px; background: #b3201c; color: #fff; font-size: 13px; font-weight: 800; padding: 1px 7px; border-radius: 999px; }"
+    },
+    {
+      "name": "Basket Dock",
+      "kind": "custom",
+      "refersTo": "basket-piece",
+      "description": "Red perforated plastic basket docked at the bottom; drop target holding removable pieces.",
+      "html": "<section class=\"ds-basket\"><div class=\"h\"><b>Basket</b><span>3 pieces</span></div><ul><li><button><i style=\"background:#4f8a3a\"></i>Lotus root <b>×2</b></button></li><li><button><i style=\"background:#c4553a\"></i>Beef <b>×1</b></button></li></ul></section>",
+      "css": ".ds-basket { color: #fff; padding: 12px 16px 14px; border-radius: 18px 18px 0 0; background: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='16'%3E%3Crect x='2' y='3' width='8' height='4' rx='2' fill='%23a51e23'/%3E%3Crect x='13' y='11' width='8' height='4' rx='2' fill='%23a51e23'/%3E%3Crect x='-9' y='11' width='8' height='4' rx='2' fill='%23a51e23'/%3E%3C/svg%3E\") #c8262c; box-shadow: 0 -6px 18px rgba(35,26,23,0.18); font-family: \"Archivo Variable\", system-ui, sans-serif; transition: box-shadow 150ms cubic-bezier(0.22, 1, 0.36, 1), transform 150ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-basket:hover { box-shadow: 0 -6px 18px rgba(35,26,23,0.18), inset 0 0 0 3px #ffb000; transform: translateY(-4px); } .ds-basket .h { display: flex; gap: 10px; align-items: center; font-size: 14px; font-weight: 600; } .ds-basket .h b { font-size: 16px; } .ds-basket ul { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; } .ds-basket button { display: flex; align-items: center; gap: 6px; border: 0; background: #fff; color: #231a17; font: inherit; border-radius: 6px; padding: 0 11px; min-height: 40px; font-size: 14px; font-weight: 600; cursor: pointer; transition: transform 100ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-basket button:active { transform: scale(0.96); } .ds-basket button:focus-visible { outline: 2px solid #231a17; outline-offset: 2px; } .ds-basket i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }"
+    },
+    {
+      "name": "Result Stamp",
+      "kind": "custom",
+      "description": "Rotated uppercase verdict stamp; chili when off, green when spot on.",
+      "html": "<div class=\"ds-stamp-wrap\"><p class=\"ds-stamp\">Too heavy</p><p class=\"ds-stamp good\">Spot on</p></div>",
+      "css": ".ds-stamp-wrap { display: flex; gap: 16px; padding: 16px; background: #fff4e0; font-family: \"Archivo Variable\", system-ui, sans-serif; } .ds-stamp { margin: 0; font-size: 30px; font-weight: 900; text-transform: uppercase; color: #b3201c; border: 4px solid currentColor; border-radius: 8px; padding: 4px 14px; transform: rotate(-5deg); animation: ds-stamp 220ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-stamp.good { color: #2f7a3a; } @keyframes ds-stamp { from { transform: rotate(-5deg) scale(1.25); opacity: 0; } to { transform: rotate(-5deg); opacity: 1; } }"
+    },
+    {
+      "name": "Top 10 List",
+      "kind": "custom",
+      "description": "Leaderboard rows with ink rank discs; #1 in chili.",
+      "html": "<ol class=\"ds-board-list\"><li><span class=\"r\">1</span><span class=\"w\">Player one</span><b>462</b></li><li><span class=\"r\">2</span><span class=\"w\">Player two</span><b>431</b></li></ol>",
+      "css": ".ds-board-list { list-style: none; margin: 0; padding: 0 16px; background: #fff4e0; color: #231a17; font-family: \"Archivo Variable\", system-ui, sans-serif; font-variant-numeric: tabular-nums; } .ds-board-list li { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f6e6c8; } .ds-board-list .r { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: #231a17; color: #fff4e0; font-weight: 800; font-size: 14px; } .ds-board-list li:first-child .r { background: #b3201c; } .ds-board-list .w { font-weight: 700; } .ds-board-list b { margin-left: auto; font-size: 18px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Stall Counter",
+    "overview": "The interface is the self-serve mala stall itself: a chili-red signboard overhead, a laminated price board ruled in ink, brushed steel trays of white ingredient pieces, and a red perforated plastic basket docked at the bottom where you drop what you pick. Every surface stands in for a physical object at the counter, and the running weight and price are the loudest thing on the screen because learning them is the point.\n\nDensity is compact and phone-first: a single column capped at 480px, full device height, one hand. One heavy grotesk carries everything, from the monumental gram readout to the 12px price cells, always with tabular numerals so totals never jitter as they climb. Depth is physical, not decorative: chips sit on the tray with a soft lift, the dragged piece lifts higher, the basket casts upward onto the tray above it.",
+    "keyCharacteristics": [
+      "Chili-red signboard header holding mode pills and the live grams / S$ readout.",
+      "Ink-ruled white price strip, one cell per tier, each keyed by a tier swatch; the cells are also the tray tabs.",
+      "Steel-gradient tray with inset bevel under a one-line tray heading, holding white chips you drag or tap.",
+      "Red perforated plastic basket dock (rounded slots punched in darker red) as the drop target.",
+      "Archivo Variable at 600 to 900, tabular numerals app-wide.",
+      "Pills for every toggle and button; small radii for physical pieces."
+    ],
+    "rules": [
+      {
+        "name": "The Amber Is Money Rule",
+        "body": "Amber marks prices, budgets and limits, and the basket's \"drop here\" ring. It is never a general highlight.",
+        "section": "colors"
+      },
+      {
+        "name": "The Swatch-Only Tier Rule",
+        "body": "Tier colours appear only as small swatches next to a tier's name. They never fill chips, cells or text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Tabular numerals are on for the whole app, so climbing totals never shift sideways.",
+        "section": "typography"
+      },
+      {
+        "name": "The Lift Means Held Rule",
+        "body": "The deeper shadow belongs to a piece in the hand. Resting things get chip lift or nothing.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep tabular numerals on every number, and units in a `small` at 0.35 to 0.4em.",
+      "Do use pills for header toggles and buttons, square ruled cells for the price strip, and 2 to 10px radii for physical pieces.",
+      "Do set pressed and selected states as an ink/cream swap: cream on chili-deep, ink on cream.",
+      "Do start press feedback at `scale(0.96)` over 100ms with `--ease-smooth-out` on everything you press (chips, pieces, buttons, pills, strip cells, the Empty link), and take state colour changes at 150ms.",
+      "Do keep touch targets at least 44px tall for controls (40px for basket pieces).",
+      "Do tint shadows with ink (rgba(35,26,23,…)), not pure black, except inside the steel bevel.",
+      "Do keep tap-to-add next to drag on every chip."
+    ],
+    "donts": [
+      "Don't use amber for anything other than money, limits and the drop-target ring.",
+      "Don't fill surfaces or text with tier colours. They are swatches only.",
+      "Don't give resting elements the held-piece shadow.",
+      "Don't use steel anywhere but the tray.",
+      "Don't add a second typeface. Archivo Variable carries every role."
+    ]
+  }
+}
