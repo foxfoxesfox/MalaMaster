@@ -1,19 +1,29 @@
 ---
 name: MalaMaster
-description: A mala stall in your pocket: drag pieces from steel trays into a red plastic basket and watch grams and S$ climb.
+description: A mala stall in your pocket: pick pieces from steel bins with tongs, drop them in a red plastic basket on the scale, and check out with a printed receipt.
 colors:
   chili: "#b3201c"
   chili-deep: "#8e1714"
-  basket: "#c8262c"
-  basket-slot: "#a51e23"
   amber: "#ffb000"
+  basket: "#c8262c"
+  basket-slot: "#7d1418"
+  basket-floor: "#a51e23"
   cream: "#fff4e0"
   cream-2: "#f6e6c8"
-  chip-white: "#ffffff"
+  tag-white: "#ffffff"
   ink: "#231a17"
   ink-2: "#5a4a44"
-  steel-hi: "#dfe2e4"
-  steel-lo: "#b4babd"
+  counter-steel: "#d8dcde"
+  bin-steel: "#c9cdd0"
+  tong-steel: "#c3c8cc"
+  lcd-glass: "#b9d3a4"
+  lcd-ink: "#1f3318"
+  printer-body: "#2a2320"
+  led-ready: "#6fd07a"
+  paper: "#fbfaf6"
+  paper-ink: "#26211e"
+  paper-dim: "#6f6762"
+  paper-note: "#f1eee6"
   ok: "#2f7a3a"
   tier-veg: "#4f8a3a"
   tier-mush: "#8a6a45"
@@ -35,7 +45,7 @@ typography:
     letterSpacing: "-0.02em"
   title:
     fontFamily: "Archivo Variable, system-ui, sans-serif"
-    fontSize: "16px"
+    fontSize: "19px"
     fontWeight: 750
   body:
     fontFamily: "Archivo Variable, system-ui, sans-serif"
@@ -47,12 +57,24 @@ typography:
     fontFamily: "Archivo Variable, system-ui, sans-serif"
     fontSize: "14px"
     fontWeight: 600
+  receipt:
+    fontFamily: "ui-monospace, SF Mono, Menlo, Consolas, monospace"
+    fontSize: "13px"
+    fontWeight: 500
+    lineHeight: 1.45
+  lcd:
+    fontFamily: "ui-monospace, SF Mono, Menlo, monospace"
+    fontSize: "15px"
+    fontWeight: 700
+    lineHeight: 1
 rounded:
   swatch: "2px"
-  piece: "6px"
-  chip: "8px"
-  tray: "10px"
-  basket: "18px"
+  tag: "3px"
+  lcd: "4px"
+  stamp: "6px"
+  field: "8px"
+  card: "10px"
+  printer: "16px"
   pill: "999px"
 spacing:
   xs: "6px"
@@ -71,9 +93,10 @@ components:
     textColor: "{colors.cream}"
     rounded: "{rounded.pill}"
     padding: "9px 18px"
-  button-primary-on-basket:
+  button-primary-on-bar:
     backgroundColor: "{colors.cream}"
     textColor: "{colors.ink}"
+    height: "44px"
   button-big:
     padding: "14px"
     width: "100%"
@@ -86,7 +109,7 @@ components:
     backgroundColor: "{colors.cream}"
     textColor: "{colors.ink}"
   strip-cell:
-    backgroundColor: "{colors.chip-white}"
+    backgroundColor: "{colors.tag-white}"
     textColor: "{colors.ink}"
     padding: "6px 2px"
     height: "56px"
@@ -97,27 +120,37 @@ components:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.amber}"
     padding: "6px"
-  ingredient-chip:
-    backgroundColor: "{colors.chip-white}"
+  bin-label:
+    backgroundColor: "{colors.tag-white}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.chip}"
-    padding: "12px 12px 11px"
-    height: "64px"
-  chip-count:
+    rounded: "{rounded.tag}"
+    padding: "3px 6px"
+  scale-lcd:
+    backgroundColor: "{colors.lcd-glass}"
+    textColor: "{colors.lcd-ink}"
+    typography: "{typography.lcd}"
+    rounded: "{rounded.lcd}"
+    padding: "5px 10px"
+  action-bar:
     backgroundColor: "{colors.chili}"
-    textColor: "{colors.chip-white}"
-    rounded: "{rounded.pill}"
-    padding: "1px 7px"
-  basket-piece:
-    backgroundColor: "{colors.chip-white}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.piece}"
-    padding: "0 11px"
-    height: "40px"
+    textColor: "{colors.cream}"
+    padding: "10px 16px"
+  printer:
+    backgroundColor: "{colors.printer-body}"
+    textColor: "{colors.cream}"
+    rounded: "{rounded.printer}"
+    padding: "14px 16px 18px"
+    width: "340px"
+  receipt-paper:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.paper-ink}"
+    typography: "{typography.receipt}"
+    padding: "20px 16px 22px"
+    width: "308px"
   text-input:
-    backgroundColor: "{colors.chip-white}"
+    backgroundColor: "{colors.tag-white}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.chip}"
+    rounded: "{rounded.field}"
     padding: "8px 10px"
 ---
 
@@ -127,148 +160,180 @@ components:
 
 **Creative North Star: "The Stall Counter"**
 
-The interface is the self-serve mala stall itself: a chili-red signboard overhead, a laminated price board ruled in ink, brushed steel trays of white ingredient pieces, and a red perforated plastic basket docked at the bottom where you drop what you pick. Every surface stands in for a physical object at the counter, and the running weight and price are the loudest thing on the screen because learning them is the point.
+The interface is the self-serve mala stall itself. A chili-red signboard hangs overhead. Below it sits a real 3D counter: one long stepped steel shelf holding every ingredient in sections, each under a hanging coloured price sign, with a clip-on tag on every bin, a pair of red-gripped tongs, and a red perforated plastic basket on a steel scale with a green LCD. Checking out prints a thermal receipt. Every surface stands in for a physical object at the counter. The running weight and price stay the loudest thing in the DOM, because learning them is the point.
 
-Density is compact and phone-first: a single column capped at 480px, full device height, one hand. One heavy grotesk carries everything, from the monumental gram readout to the 12px price cells, always with tabular numerals so totals never jitter as they climb. Depth is physical, not decorative: chips sit on the tray with a soft lift, the dragged piece lifts higher, the basket casts upward onto the tray above it.
+The DOM chrome is compact and phone-first: a single column (480px, widening to 760px on large screens), full device height, one hand. Archivo Variable carries every interface role with tabular numerals. The only other type is system monospace, and only on machine-made surfaces: the scale LCD and the receipt. Depth comes from the 3D scene's light and contact shadows. The DOM stays mostly flat, apart from the tags and the printer that sit on top of the scene.
 
 **Key Characteristics:**
 - Chili-red signboard header holding mode pills and the live grams / S$ readout.
-- Ink-ruled white price strip, one cell per tier, each keyed by a tier swatch; the cells are also the tray tabs.
-- Steel-gradient tray with inset bevel under a one-line tray heading, holding white chips you drag or tap.
-- Red perforated plastic basket dock (rounded slots punched in darker red) as the drop target.
-- Archivo Variable at 600 to 900, tabular numerals app-wide.
-- Pills for every toggle and button; small radii for physical pieces.
+- One long stepped shelf you walk along (swipe, wheel, or the shelf map), with hanging section signs and clip-on bin tags.
+- A 3D steel counter: bins with white DOM price tags, tongs that follow the pointer, a perforated red basket on a scale with a green LCD.
+- Low-poly, flat-shaded ingredients drawn at 1.3x, falling onto the pile under gravity with no bounce.
+- A chili action bar with the piece count, an Empty basket link and a cream checkout button.
+- A dark receipt printer that feeds monospace paper with a torn zigzag edge and a rubber stamp.
 
 ## Colors
 
-A warm stall palette: chili red and turmeric amber on laminated cream, with near-black ink rules and cool brushed steel as the only cool note.
+A warm stall palette: chili red and turmeric amber on laminated cream, with near-black ink rules, cool brushed steel for the counter, and the off-white paper and green LCD of the stall's machines.
 
 ### Primary
-- **Chili Oil Red** (chili): the signboard header ground, the count badge on chips, the result stamp when off-target, error text, the #1 rank disc.
+- **Chili Oil Red** (chili): the signboard header, the action bar, the tongs' rubber grips, the receipt stamp when off-target, error text, the #1 rank disc.
 - **Deep Chili** (chili-deep): the recessed track behind the header's mode and pricing pills.
-- **Plastic Basket Red** (basket): the basket dock's body; slightly brighter than chili so the dock reads as a separate object.
-- **Basket Slot Red** (basket-slot): the rounded perforation slots (8 by 4px, 2px radius, on a staggered 22 by 16px tile) punched into the basket. Used nowhere else.
+- **Plastic Basket Red** (basket): the basket wall and its rim; slightly brighter than chili so the basket reads as its own object.
+- **Basket Slot Red** (basket-slot): the rounded perforation slots punched into the basket wall.
+- **Basket Floor Red** (basket-floor): the basket's solid floor disc.
 
 ### Secondary
-- **Turmeric Amber** (amber): money and limits. The S$ total in the readout, the order's budget rules line, the over-budget pill text, the flat-rate bar's text, the basket's drop-target ring, and text selection.
+- **Turmeric Amber** (amber): money and limits. The S$ total in the readout, the order's rules line, the over-budget pill text, the flat-rate bar's text, the printer's working LED, and text selection.
 
 ### Tertiary
-- **Tier swatches** (tier-veg, tier-mush, tier-tofu, tier-meat, tier-prem): one colour per ingredient tier, used only as 10px swatches in the price strip, basket pieces and the drag ghost. Applied through a `data-tier` attribute that sets a local `--c`.
-- **Stamp Green** (ok): the result stamp when the bowl is spot on.
+- **Tier swatches** (tier-veg, tier-mush, tier-tofu, tier-meat, tier-prem): one colour per ingredient tier, used for section signs, the shelf map segments and the 3px top edge of each bin tag. Applied through a `data-tier` attribute that sets a local `--c`.
+- **Stamp Green** (ok): the receipt stamp when the bowl is spot on or in budget.
+- **Ready Green** (led-ready): the printer LED once the receipt is ready to take.
 
 ### Neutral
-- **Laminated Cream** (cream): the app ground, header text, primary-button text, the pressed pill.
-- **Aged Cream** (cream-2): the page outside the 480px column and the hairline dividers in result facts, recap and the board.
-- **Chip White** (chip-white): ingredient chips, the price strip, basket pieces, the drag ghost, the name-entry card, and text on the basket.
-- **Ink** (ink): body text, all rules and outlines, the primary button, the selected price-strip cell, the flat-rate bar, rank discs.
-- **Faded Ink** (ink-2): secondary text (chip piece weight, muted lines, fact labels, recap detail lines).
-- **Steel** (steel-hi to steel-lo): the tray's top-to-bottom gradient. Nothing else is steel.
+- **Laminated Cream** (cream): the app ground, header and action-bar text, the pressed pill, the action-bar button.
+- **Aged Cream** (cream-2): the page outside the column and the hairline dividers in the recap and the board.
+- **Tag White** (tag-white): the price strip, bin price tags, and the name-entry card and input.
+- **Ink** (ink): body text, all rules and outlines, the primary button, the selected strip cell, the flat-rate bar, rank discs.
+- **Faded Ink** (ink-2): secondary text (bin-tag weights, muted lines, recap details, the loading placeholder).
+- **Counter Steel** (counter-steel): the 3D counter surface and the background of the lazy-load placeholder.
+- **Bin Steel** (bin-steel): bins and the scale platform (metalness 0.35, roughness 0.35). Bin walls lighten to #e4e7e9 while the pointer is over them.
+- **Tong Steel** (tong-steel): the tong arms, paddles and hinge ring (metalness 0.7, roughness 0.22).
+- **LCD Glass / LCD Ink** (lcd-glass, lcd-ink): the scale readout only.
+- **Printer Body** (printer-body): the receipt printer's housing. Its paper slot is darker still (#0d0a09).
+- **Paper / Paper Ink / Paper Dim / Paper Note** (paper, paper-ink, paper-dim, paper-note): the receipt sheet, its print, its secondary print, and the boxed note. Dashed rules print in #8c8480.
 
 ### Named Rules
-**The Amber Is Money Rule.** Amber marks prices, budgets and limits, and the basket's "drop here" ring. It is never a general highlight.
+**The Amber Is Money Rule.** Amber marks prices, budgets and limits, plus the printer's working LED. It is never a general highlight.
 
-**The Swatch-Only Tier Rule.** Tier colours appear only as small swatches next to a tier's name. They never fill chips, cells or text.
+**The Swatch-Only Tier Rule.** Tier colours appear only as small swatches next to a tier's name. They never fill cells or text. The 3D ingredients carry their own food colours instead.
+
+**The Machine Palette Rule.** LCD green and receipt paper belong to the stall's machines (scale and printer). They never become UI surfaces.
 
 ## Typography
 
 **Display Font:** Archivo Variable (with system-ui, sans-serif)
 **Body Font:** Archivo Variable
-**Label/Mono Font:** Archivo Variable, tabular numerals
+**Label/Mono Font:** Archivo Variable with tabular numerals for UI; system monospace (ui-monospace, SF Mono, Menlo) for machine output only.
 
-**Character:** One heavy grotesk, pushed to 850 for numbers and headings and kept at 600 to 800 for controls, like stall signage that's painted on and then laminated.
+**Character:** One heavy grotesk, pushed to 850 for numbers and headings and kept at 600 to 800 for controls, like stall signage that's painted on and then laminated. The machines print in plain monospace.
 
 ### Hierarchy
-- **Display** (850, clamp(56px, 18vw, 76px), 0.95, -0.03em): the live gram readout. The order target uses the same voice at clamp(48px, 15vw, 64px), and the score at 64px. Units sit in a `small` at 0.35 to 0.4em.
+- **Display** (850, clamp(56px, 18vw, 76px), 0.95, -0.03em): the live gram readout. The order target uses the same voice at clamp(48px, 15vw, 64px), and the round score at 64px. Units sit in a `small` at 0.35 to 0.4em.
 - **Headline** (850, 28px, -0.02em, balanced wrap): panel titles (Top 10, Round total, the Orders intro).
 - **Money** (800, 30px, amber): the S$ total next to the gram readout.
-- **Title** (750, 15 to 19px): ingredient chip names (16px), the tray heading (15px), the order chit's amber rules line (19px, which is large enough to count as large text on chili).
+- **Title** (750, 19px): the order chit's amber rules line, sized to count as large text on chili.
 - **Body** (400, 16px, 1.5): panel paragraphs, max 65ch.
-- **Label** (600 to 800, 12 to 15px): pills (14px / 600; pricing pills 13px), price cells (12px / 600, rate 15px bold), the flat-rate bar (14px / 750), buttons (15px / 800; big 17px), recap detail lines (14px, ink-2).
+- **Label** (600 to 800, 11 to 15px): pills (14px / 600; pricing pills 13px), price cells (12px / 600, rate 15px bold), the flat-rate bar (14px / 750), bin tags (11px; name 800, weight 650 in ink-2), the Empty basket link (14px / 600), buttons (15px / 800; big 17px), recap details (14px, ink-2).
 - **Signboard** (850, clamp(15px, 4.4vw, 18px), uppercase, 0.01em): the MalaMaster wordmark only.
-- **Stamp** (900, 30px, uppercase): the result verdict only.
+- **LCD** (system mono, 700, 15px): the scale readout ("480 g", or "– – – g" when the scale is hidden).
+- **Receipt** (system mono, 500, 13px, 1.45): the receipt body. The brand line is 18px / 800 with 0.12em tracking, strong total rows are 15px / 800, and the note is 12px. The receipt stamp is Archivo at 900, 20px, uppercase.
 
 ### Named Rules
 **The Tabular Rule.** Tabular numerals are on for the whole app, so climbing totals never shift sideways.
 
+**The Machine Type Rule.** Monospace appears only where a machine prints it: the scale LCD and the receipt. Everything a person reads as UI is Archivo.
+
 ## Layout
 
-A single column capped at 480px and centered, filling `100dvh`, in a fixed vertical stack: signboard header, price strip, a scrolling middle (trays or a panel), and the basket dock pinned at the bottom (min 132px, max 34dvh, scrolls on its own, padded for the safe area). The price strip doubles as the tray picker, so there is no separate tab row. Gutters are 16px. Gaps run in a tight 6 / 8 / 10 / 12px rhythm, and panels open up to 22px padding with 14px gaps. Touch targets are at least 44px tall for mode and pricing pills, the budget input and the Empty link, 56px for strip cells and 40px for basket pieces. The tray is an auto-fill grid of chips at least 140px wide with 8px gaps.
+A single centered column, `--col` wide (480px, or 760px from a 900px viewport), filling `100dvh`, in a fixed vertical stack: the signboard header, the 3D stage (flex, at least 320px), the shelf map, and the action bar pinned at the bottom with safe-area padding. The shelf map sits just above the action bar so it's in thumb reach on a phone. From 900px wide the column becomes a two-column grid up to 1200px: the signboard turns into a 360px left rail (logo, full-width mode tabs, readout, controls or the order chit) and the stall, shelf map and action bar take the rest of the screen.
+
+While the 3D canvas boots, a counter-steel cover reads "Setting up the stall…". The first three drops that miss the basket get a short ink pill over the scale, "Let go over the red basket to drop it in", which fades in and out over 1.8s.
+
+The Orders intro ("60-second shift") fills the screen top to bottom: title and one-line promise, an example chit in the same chili red as the real one, three numbered steps (pick by eye, serve fast, stay close) in ink discs, and Start at the bottom within thumb reach. The shelf sits at the back and the basket on its scale at the front. The camera uses the narrowest field of view that keeps the whole stall in frame, so the counter always fills the stage. The 3D code is lazy-loaded behind a "Setting up the stall…" placeholder in counter steel.
+
+Gutters are 16px. Gaps run in a tight 6 / 8 / 10 / 12px rhythm, and panels open up to 22px padding with 14px gaps. Touch targets are at least 44px tall for pills, the budget input, the Empty basket link and the action-bar button, and 56px for strip cells. The receipt opens as a scrim over the column only (same `--col`), with the printer at most 340px wide and the paper at most 308px.
 
 ## Elevation & Depth
 
-A hybrid. Ink rules and borders give structure (the price strip, tabs, buttons, inputs). Soft, layered, ink-tinted shadows show physical lift, and the steel tray uses an inset bevel instead of a drop shadow.
+A hybrid. In the DOM, ink rules and borders give structure (buttons, inputs, bin tags), and shadows are rare. The 3D scene supplies the real depth: ambient light plus two directional lights, soft contact shadows under everything (opacity 0.35, blur 2.4), and real geometry for bins, basket and tongs.
 
 ### Shadow Vocabulary
-- **Chip lift** (`0 1px 1px rgba(35,26,23,0.12), 0 4px 10px rgba(35,26,23,0.1)`): chips resting on the tray, and the name-entry card.
-- **Held piece** (`0 2px 4px rgba(35,26,23,0.15), 0 14px 28px rgba(35,26,23,0.22)`): the drag ghost only.
-- **Tray bevel** (`inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -2px 4px rgba(0,0,0,0.12)`): the steel tray.
-- **Basket cast** (`0 -6px 18px rgba(35,26,23,0.18)`): the dock casts upward over the content above. When it is a live drop target it adds a 3px amber inset ring and rises 4px.
+- **Card lift** (`0 1px 1px rgba(35,26,23,0.12), 0 4px 10px rgba(35,26,23,0.1)`): the name-entry card.
+- **Tag lift** (`0 1px 2px rgba(35,26,23,0.2)`): bin price tags pinned over the scene.
+- **LCD bezel** (`inset 0 1px 2px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,0.5)`): the recessed scale display.
+- **Printer** (`0 2px 4px rgba(0,0,0,0.3), 0 16px 32px rgba(0,0,0,0.35)`): the printer housing floating over the scrim.
+- **Scrim** (rgba(35,26,23,0.55)): dims the column behind the receipt.
 
 ### Named Rules
-**The Lift Means Held Rule.** The deeper shadow belongs to a piece in the hand. Resting things get chip lift or nothing.
+**The Scene Owns Depth Rule.** Physical depth lives in the 3D scene's light and contact shadows. DOM shadows stay small and are used only on objects laid over the scene (tags, LCD, printer, entry card).
 
 ## Shapes
 
-Pills (999px) for everything you toggle or press in the header and for buttons: mode and pricing pills, buttons, count badges, the over-budget pill. Small, near-square radii for physical objects: swatches 2px, basket pieces 6px, chips, ghost, inputs and stamp 8px, tray and entry card 10px. The basket dock is the one large curve (18px top corners, square bottom) because it is docked to the screen edge. The price strip is the square exception: its cells are flat ruled boxes with no radius. Borders are ink at 1px (strip cells) and 2px (buttons, inputs, strip base). The stamp uses a 4px currentColor border, rotated -5deg.
+Pills (999px) for everything you toggle or press in the chrome: mode and pricing pills, buttons, the over-budget pill. Small, near-square radii for printed or mounted objects: swatches 2px, bin tags 3px, LCD 4px, receipt stamp 6px, inputs 8px, entry card 10px, printer 16px. Borders are ink at 1px (bin tags) and 2px (buttons, inputs). Stamps use a currentColor border and a slight counter-clockwise rotation. The receipt ends in an 8px zigzag torn edge cut with a CSS mask. In 3D, bins are open steel boxes, the scale platform is a rounded box, and the basket is a flared, perforated cylinder with a torus rim.
 
 ## Components
 
 ### Buttons
 - **Shape:** full pill (999px), 2px ink border.
 - **Default:** cream with ink text, 9px 18px padding, 15px / 800.
-- **Primary:** ink fill with cream text. Inside the basket it flips to cream fill with a cream border.
-- **Big:** full width, 14px padding, 17px. Used for panel actions.
-- **Press:** `scale(0.96)` on `:active` over 100ms ease-smooth-out. Disabled is 45% opacity with no press.
-- **Link:** on the basket only. White underlined text with a 3px offset ("Empty"), 44px tall, same 0.96 press.
-
-### Chips
-- **Ingredient chip:** a white piece on the tray, 8px radius, chip-lift shadow, min 64px tall. Name is 16px / 750 with the piece weight below in faded ink. A chili count pill sits top right once the item is in the basket. Grab cursor, 0.96 press.
-- **Basket piece:** a white 6px tag, 40px tall, with a tier swatch, the name and a bold ×count. Tapping it removes one.
+- **Primary:** ink fill with cream text. On the action bar it flips to cream fill with a cream border, 44px tall.
+- **Big:** full width, 14px padding, 17px. Used for panel actions and the receipt's tear-off button.
+- **Press:** `scale(0.96)` on `:active` over 100ms ease-smooth-out. Disabled is 45% opacity with no press. The receipt button stays invisible until printing finishes.
+- **Link:** underlined, inheriting the text colour, with a 3px offset, 44px tall and the same 0.96 press ("Empty basket").
 
 ### Navigation
 - **Mode pills:** a deep-chili track inside the signboard, 44px tall. Unpressed pills show cream text, and the pressed one fills cream with ink text. The colour change takes 150ms, and the 0.96 press applies. The pricing segment uses the same pattern with 13px text.
-- **Tray tabs:** the price strip cells (see Price Strip). There is no separate tab row.
+- **Shelf map:** walks the shelf to a section (see Shelf, Signs and Shelf Map).
 
 ### Inputs / Fields
 - **Budget input:** borderless cream field, 8px radius, 44px tall, set in the signboard.
 - **Name input:** 2px ink border, 8px radius, white, inside the name-entry card.
 - **Focus:** a 2px ink outline offset by 2px, which turns cream inside the header. The caret is chili.
 
-### Price Strip (signature)
-A white bar with a 2px ink base rule and 1px ink rules between cells, and also the tablist that picks the tray. Each cell is a 56px button stacking a tier swatch, the short tier name and a bold rate. The selected cell fills ink with cream text (150ms), cells press to 0.96, the arrow keys move between them, and the focus ring sits inset by 4px. At a flat-rate stall an ink bar above the strip reads the single rate in 14px / 750 amber, and the cells drop their rates.
+### Shelf, Signs and Shelf Map (signature)
+- **Shelf:** 3 rows deep and 14 columns long, each row stepped 0.32 higher than the one in front, on steel risers with a back panel. Ingredients fill it column by column in tier order (veg, mushrooms, tofu & balls, noodles & carbs, meat, beef & seafood), so each section runs along its length.
+- **Walking:** the camera frames about 5 columns on a phone and more on wider screens. Pressing anywhere that isn't a bin or piece and dragging sideways walks along the shelf; the wheel or trackpad does the same. The basket slides with you, so it is always in front. You start at the vegetable end.
+- **Section signs:** a coloured sign hangs over each section with its name (uppercase, 10px, 850) and its price per 100g (or "Flat rate", or "Noodles S$1 each"). A section the order bans turns ink and reads "No …".
+- **Bin tags:** white clip-on tags with a 3px top edge in the tier colour, the name in 800 and the typical grab weight in ink-2. The price lives on the section sign, not the tag.
+- **Shelf map:** a 50px ink bar between the stall and the action bar, one coloured segment per section sized by its bin count, with a cream outline window showing what's in view. Tapping a segment walks there. A banned section is hatched and struck through.
 
-### Steel Tray (signature)
-A 10px-radius panel with a steel-hi to steel-lo vertical gradient and an inset bevel, holding the chip grid. Above it, a 15px / 750 heading names the tier and its rate per 100g.
+### 3D Stall (signature)
+- **Counter and bins:** a counter-steel surface holding open bin-steel boxes, each with six randomly placed copies of one ingredient. The whole bin is the grab target, so small pieces are easy to hit, and its walls lighten while the pointer is over it.
+- **Bin price tags:** white DOM tags (1px ink border, 3px radius, tag lift) pinned to each bin's front lip every frame. Each shows the name in 800 and the piece weight in ink-2.
+- **Ingredients:** low-poly, flat-shaded primitives (discs, leaves, stalks, balls, slabs, layered strips, rolls, rings) in food colours, drawn at 1.3x so they read on a phone. No external models.
+- **Basket on the scale:** a basket-red wall textured with rounded basket-slot perforations, a basket-floor disc and a torus rim, standing on a rounded bin-steel platform. While a held piece is over it, the basket widens to 1.04x (damped).
+- **Scale LCD:** a DOM label pinned in front of the scale, lcd-ink on lcd-glass with an inset bezel. It shows grams in Practice and "– – – g" in Orders.
+- **Tongs:** tong-steel arms with chili rubber grips and a hinge ring, laid across the screen so the jaws read from above. With a mouse they follow the pointer, eased with a factor of 28. On touch they stay hidden until a grab. The jaws close with damping while holding.
+- **Pick and drop:** grab a bin to pick a piece. A held piece hangs just under the jaws with a slight sway (±0.04 rad). Released over the basket, it falls under gravity onto its spot in the pile, damping into place with no bounce. Released anywhere else, it springs back to its bin along a short arc (critically damped, at most 0.9s). Tapping a bin adds one. Grabbing a piece in the basket takes it out.
+- **Keyboard and screen readers:** a visually hidden list of "Add one…" buttons per ingredient, plus "Take the last piece out". It appears as a white panel at the top left once it has focus.
 
-### Drag Ghost (signature)
-A white 8px tag, no border, with a tier swatch (drawn before the text) followed by the name and piece weight. It follows the finger at scale 1.06 with the held-piece shadow. If you drop it outside the basket, it springs back to its chip with a critically damped spring (damping 1, response 0.35s) that picks up the release velocity. Under reduced motion it just disappears.
+### Extras Counters
+Rice and scrambled egg are pill-shaped − n + counters in the Practice header, side by side on one phone row. Each button is a 44px-tall tap area drawn as a small chili-deep disc around a stroked plus or minus icon, so the pair fits a 390px row without shrinking the target. "New bowl" resets both to zero.
 
-### Basket Dock (signature)
-Basket red punched with a staggered pattern of rounded basket-slot perforations, with white text. While a piece is held over it, it rises 4px and shows the amber ring. On a drop it plays a 180ms `thud` that settles down from 3px.
+### Action Bar
+A chili strip under the stage with cream text. From left to right: the piece count (700), the "Empty basket" link once there are pieces, and the cream "Check out" (Practice) or "Serve" (Orders) button pushed to the right. The button is disabled while the basket is empty.
 
-### Readout and Order Chit
-In the signboard. Practice shows the monumental grams with the amber S$ total, then the pricing segment, the budget input and a "left" figure that turns into an ink pill with amber text when over budget. Orders swaps in the chit: who and which order, the target grams in display type, the rules line in 19px / 750 amber and a short hint.
+### Receipt Printer (signature)
+- **Scrim:** ink at 55% over the column only, fading in over 200ms. The receipt is a modal dialog.
+- **Printer:** a printer-body housing (16px radius, printer shadow) with a status line ("Weighing your bowl…", then "Printing your receipt", then "Take your receipt") and an LED that is amber while working and ready-green when done. A dark paper slot runs along its bottom edge.
+- **Paper:** paper-coloured, set in 13px system mono, feeding out of the slot in 16 steps over 1.9s, after a 650ms weighing pause. The bottom edge is a torn zigzag. In order: the centered MALAMASTER brand line, the heading and customer, the receipt number and time in paper-dim, a dashed rule, item lines (name and ×count, grams, price), another dashed rule, total rows (strong rows in 800), the rubber stamp, a note box on paper-note, a decorative barcode built from the receipt number, and "THANK YOU · COME AGAIN".
+- **Stamp:** Archivo 900, 20px, uppercase, 3px currentColor border, 6px radius, rotated -4deg at 85% opacity. Chili when off-target or over budget, ok-green when spot on or in budget.
+- **Action:** a full-width primary pill under the paper ("New bowl", "Next customer", "See your total"). It gets focus once printing is done.
+- **Reduced motion:** the paper is shown in place right away, with no weighing pause or feed.
 
-### Result Stamp
-A rotated (-5deg) uppercase verdict in a 4px-bordered box. Chili when off-target, green when spot on. It lands with a 220ms keyframe from scale 1.25 and opacity 0. Below it, a fact list with cream-2 hairlines and the score in display type. The round total's recap uses the same hairline rows: customer name in bold and the verdict, a 14px ink-2 line with weight and price against the target, and the score on the right at 18px.
+### Shift Clock and Score Pop-up
+In Orders the signboard shows the shift: an m:ss clock (22px, 850, amber in the last 10 seconds), points and bowls served, the streak once it passes 1, and a 4px amber bar that drains left to right. Below it sits the current customer's chit. Each serve shows an ink pop-up over the stall for about a second: the points in 44px amber (green when spot on, red when a rule was broken) and a line with the verdict, % off, streak bonus and over-budget note. The shift ends in a long printed shift receipt, one line per bowl (customer, weight against target, points).
 
-### Top 10 List
-Rows with cream-2 hairline dividers. Each has a 28px ink rank disc (chili for #1), the name in 700 and the score at 18px, pushed right.
+### Round Recap and Top 10 List
+Rows with cream-2 hairline dividers. Each recap row shows the customer in bold and the verdict, a 14px ink-2 line with weight and price against the target, and the score on the right at 18px. Each Top 10 row has a 28px ink rank disc (chili for #1), the name in 700 and the score at 18px, pushed right. The round total sits above in 64px display type. A white name-entry card (10px radius, card lift) appears when the score makes the board.
 
 ## Do's and Don'ts
 
 ### Do:
 - **Do** keep tabular numerals on every number, and units in a `small` at 0.35 to 0.4em.
-- **Do** use pills for header toggles and buttons, square ruled cells for the price strip, and 2 to 10px radii for physical pieces.
+- **Do** use pills for chrome toggles and buttons, square ruled segments for the shelf map, and 2 to 16px radii for printed or mounted objects.
 - **Do** set pressed and selected states as an ink/cream swap: cream on chili-deep, ink on cream.
-- **Do** start press feedback at `scale(0.96)` over 100ms with `--ease-smooth-out` on everything you press (chips, pieces, buttons, pills, strip cells, the Empty link), and take state colour changes at 150ms.
-- **Do** keep touch targets at least 44px tall for controls (40px for basket pieces).
-- **Do** tint shadows with ink (rgba(35,26,23,…)), not pure black, except inside the steel bevel.
-- **Do** keep tap-to-add next to drag on every chip.
+- **Do** start press feedback at `scale(0.96)` over 100ms with `--ease-smooth-out` on everything you press, and take state colour changes at 150ms.
+- **Do** keep touch targets at least 44px tall for controls (56px for strip cells).
+- **Do** pin DOM labels (tags, LCD) to their 3D anchors every frame, rather than drawing text into the scene.
+- **Do** keep 3D motion damped and physical: gravity onto the pile, springs back to the bin, no bounce.
+- **Do** keep an accessible non-3D path for adding and removing pieces.
 
 ### Don't:
-- **Don't** use amber for anything other than money, limits and the drop-target ring.
+- **Don't** use amber for anything other than money, limits and the printer's working LED.
 - **Don't** fill surfaces or text with tier colours. They are swatches only.
-- **Don't** give resting elements the held-piece shadow.
-- **Don't** use steel anywhere but the tray.
-- **Don't** add a second typeface. Archivo Variable carries every role.
+- **Don't** use monospace outside the scale LCD and the receipt.
+- **Don't** use LCD green or receipt paper as UI surfaces.
+- **Don't** add heavy DOM shadows. Depth belongs to the 3D scene.
