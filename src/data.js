@@ -128,29 +128,29 @@ export function lineItems(pieces, stall) {
 // A shift is a race: serve as many bowls as you can in SHIFT_SECONDS.
 export const SHIFT_SECONDS = 60
 
-// Points for one bowl in a shift:
-// +10 for serving it, plus accuracy (100 within 3% of the target, minus 4 per extra 1% off, 0 from 28% off),
-// plus a streak bonus (+10, +20, +30… for each bowl in a row within 5%), minus 25 if over budget.
-// Breaking a "no X" rule earns only the 10 for serving. Rushing pays only if the bowls stay close.
+// Points for one bowl in a shift, scored line by line against the order:
+// each line is 100 within 10% of its weight (pieces don't come in exact grams), then loses 2 per extra 1% off;
+// the bowl's accuracy is the lines averaged by weight, minus 1 per 1% of unordered food you added.
+// Points = 10 for serving + accuracy + a streak bonus (+10, +20, +30… for each bowl in a row at 90 or more).
 export function scoreBowl(order, pieces, streak = 0) {
+  const got = {}
+  for (const p of pieces) got[p.id] = (got[p.id] || 0) + p.g
+  const want = order.items.reduce((a, it) => a + it.grams, 0)
+  const lines = order.items.map((it) => {
+    const g = got[it.id] || 0
+    const err = (Math.abs(g - it.grams) / it.grams) * 100
+    return { ...it, got: g, acc: err <= 10 ? 100 : Math.max(0, Math.round(100 - (err - 10) * 2)) }
+  })
+  const ordered = new Set(order.items.map((it) => it.id))
+  const extra = pieces.filter((p) => !ordered.has(p.id)).reduce((a, p) => a + p.g, 0)
+  const weighted = lines.reduce((a, l) => a + l.acc * l.grams, 0) / want
+  const accuracy = Math.max(0, Math.round(weighted - (extra / want) * 100))
   const { grams, price } = totals(pieces, order)
-  const err = grams ? (Math.abs(grams - order.grams) / order.grams) * 100 : 100
-  const accuracy = err <= 3 ? 100 : Math.max(0, Math.round(100 - (err - 3) * 4))
-  const overBudget = price > order.budget
-  const broke = !!order.avoid && pieces.some((p) => BY_ID[p.id].tier === order.avoid)
-  const streakAfter = !broke && err <= 5 ? streak + 1 : 0
+  const streakAfter = accuracy >= 90 ? streak + 1 : 0
   const bonus = streakAfter > 1 ? (streakAfter - 1) * 10 : 0
-  const points = !grams ? 0 : broke ? 10 : Math.max(0, 10 + accuracy + bonus - (overBudget ? 25 : 0))
-  const verdict = broke
-    ? 'Rule broken'
-    : err <= 5
-      ? 'Spot on'
-      : err <= 12
-        ? 'Close'
-        : grams > order.grams
-          ? 'Too much'
-          : 'Too little'
-  return { points, grams, price, err, accuracy, bonus, verdict, overBudget, broke, streak: streakAfter }
+  const points = pieces.length ? 10 + accuracy + bonus : 0
+  const verdict = accuracy >= 90 ? 'Spot on' : accuracy >= 70 ? 'Close' : extra > 0 && accuracy < 70 ? 'Wrong items' : 'Off'
+  return { points, accuracy, bonus, verdict, lines, extra, grams, want, price, streak: streakAfter }
 }
 
 const CUSTOMERS = ['Wei Ling', 'Jun Hao', 'Priya', 'Marcus', 'Siew Mei', 'Darren', 'Aisha', 'Kai', 'Bee Hoon', 'Ravi']
@@ -183,18 +183,20 @@ export function weighedPer100(pieces, stall) {
   return grams ? (price / grams) * 100 : null
 }
 
+// An order like the ones customers place online: 3 to 5 items, each a weight rounded to 10g.
+// Each line is sized to a sensible handful of that ingredient (about 40 to 140g, at least one piece).
 // rand is injectable so the self-check can be deterministic
 export function makeOrder(rand = Math.random) {
   const pick = (a) => a[Math.floor(rand() * a.length)]
-  const grams = 250 + Math.round((rand() * 350) / 10) * 10 // 250-600g: quick bowls for a timed shift
-  const pricing = rand() < 0.5 ? 'tiered' : 'flat'
-  // budget leaves 10-40% headroom over the flat-rate cost of the target
-  const budget = Math.ceil((grams / 100) * FLAT_RATE * (1.1 + rand() * 0.3))
-  const avoid = rand() < 0.4 ? pick(['meat', 'prem', 'mush']) : null
-  const noodlesFixed = rand() < 0.35
-  // some want rice or scrambled egg, sometimes two; it comes out of the same budget
-  const rice = rand() < 0.3 ? (rand() < 0.3 ? 2 : 1) : 0
-  const egg = rand() < 0.25 ? (rand() < 0.3 ? 2 : 1) : 0
-  const extra = Math.ceil(rice * RICE_PRICE + egg * EGG_PRICE)
-  return { customer: pick(CUSTOMERS), grams, budget: budget + extra, pricing, avoid, noodlesFixed, rice, egg }
+  const pool = [...INGREDIENTS]
+  const n = 3 + Math.floor(rand() * 3)
+  const items = Array.from({ length: n }, () => {
+    // Hot Hideout's baseline turns up more often, like it would on a real menu
+    const base = pool.filter((i) => i.hh)
+    const ing = (rand() < 0.65 && base.length ? pick(base) : pick(pool))
+    pool.splice(pool.indexOf(ing), 1)
+    const pieces = Math.max(1, Math.round((40 + rand() * 100) / ing.g))
+    return { id: ing.id, grams: Math.max(10, Math.round((pieces * ing.g) / 10) * 10) }
+  })
+  return { customer: pick(CUSTOMERS), items, pricing: rand() < 0.5 ? 'tiered' : 'flat' }
 }

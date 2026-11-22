@@ -22,3 +22,24 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Secrets: keep real keys out of git (.env.example with placeholders stays)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local AI and design tooling: working files, not part of the app
+.claude/
+.impeccable/
+CLAUDE.local.md
+
+# Local build and deploy caches
+.wrangler/
+.vercel/
+supabase/.temp/
+supabase/.branches/
+coverage/
+DESIGN.md
+PRODUCT.md

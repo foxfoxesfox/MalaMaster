@@ -1,14 +1,14 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
-import { TIERS, FLAT_RATE, NOODLE_PRICE, RICE_PRICE, EGG_PRICE, SHIFT_SECONDS, totals, lineItems, scoreBowl, nextOrder, weighedPer100, pilePose, pickWeight } from './data.js'
+import { BY_ID, FLAT_RATE, NOODLE_PRICE, RICE_PRICE, EGG_PRICE, SHIFT_SECONDS, totals, lineItems, scoreBowl, nextOrder, weighedPer100, pilePose, pickWeight } from './data.js'
 import { boardReady, getTop, submitScore, qualifies } from './leaderboard.js'
 import Receipt from './Receipt.jsx'
+import StallSkeleton from './StallSkeleton.jsx'
 import { useCount } from './count.js'
 
 // three.js is big; load it after the first paint
 const Stall3D = lazy(() => import('./Stall3D.jsx'))
 
 const money = (n) => `S$${n.toFixed(2)}`
-const TIER_NAME = Object.fromEntries(TIERS.map((t) => [t.id, t.name]))
 
 export default function App() {
   const [mode, setMode] = useState('practice')
@@ -84,8 +84,8 @@ export default function App() {
     setReceipt({
       heading: 'SHIFT RECEIPT',
       sub: `${SHIFT_SECONDS} SECONDS · ${s.served.length} BOWL${s.served.length === 1 ? '' : 'S'}`,
-      firstStatus: "Time's up! Adding up your shift…",
-      lines: s.served.map(({ order: o, r }, i) => ({ key: i, name: o.customer, mid: `${r.grams}/${o.grams}g`, right: `+${r.points}` })),
+      firstStatus: "Time's up · adding up your shift…",
+      lines: s.served.map(({ order: o, r }, i) => ({ key: i, name: o.customer, mid: `${r.accuracy}% right`, right: `+${r.points}` })),
       rows: [
         ['BOWLS SERVED', String(s.served.length)],
         ['SPOT ON (≤5%)', String(spotOn)],
@@ -150,7 +150,7 @@ export default function App() {
         {mode === 'practice' && (
           <PracticeReadout {...{ grams, price, budget, setBudget, pricing, setPricing, extras, setExtras }} />
         )}
-        {mode === 'orders' && shift && shift.phase !== 'done' && <OrderChit order={order} shift={shift} />}
+        {mode === 'orders' && shift && shift.phase !== 'done' && <OrderChit order={order} shift={shift} pieces={pieces} />}
       </header>
 
       <main className="main">
@@ -161,7 +161,7 @@ export default function App() {
         )}
         {showStall && (
           <div className="play">
-            <Suspense fallback={<p className="stage stage-loading">Setting up the stall…</p>}>
+            <Suspense fallback={<StallSkeleton className="stage" />}>
               <Stall3D
                 pieces={pieces}
                 onAdd={add}
@@ -169,7 +169,7 @@ export default function App() {
                 grams={grams}
                 pricing={stall.pricing}
                 noodlesFixed={!!stall.noodlesFixed}
-                avoid={mode === 'orders' ? order?.avoid : null}
+                wanted={mode === 'orders' && order ? order.items.map((it) => it.id) : null}
                 scale={mode === 'practice' ? 'live' : weighing ? 'weigh' : 'none'}
                 quick={mode === 'orders'}
                 onWeighed={checkout}
@@ -203,15 +203,23 @@ export default function App() {
 
 // The score for one bowl pops over the stall for a beat before the next customer.
 function ScoreFlash({ r }) {
+  const missed = r.lines.filter((l) => l.acc < 90)
   return (
-    <div className={`flash${r.verdict === 'Spot on' ? ' good' : r.broke ? ' bad' : ''}`} role="status">
+    <div className={`flash${r.verdict === 'Spot on' ? ' good' : r.accuracy < 50 ? ' bad' : ''}`} role="status">
       <b>+{r.points}</b>
       <span>
-        {r.verdict}
-        {!r.broke && ` · ${Math.round(r.err)}% off`}
+        {r.verdict} · {r.accuracy}% right
         {r.bonus > 0 && ` · streak +${r.bonus}`}
-        {r.overBudget && ' · over budget'}
       </span>
+      {missed.length > 0 && (
+        <small>
+          {missed
+            .slice(0, 2)
+            .map((l) => `${BY_ID[l.id].name} ${l.got}/${l.grams}g`)
+            .join(' · ')}
+          {r.extra > 0 && ` · +${r.extra}g not ordered`}
+        </small>
+      )}
     </div>
   )
 }
@@ -238,8 +246,9 @@ const Icon = ({ d }) => (
 function Stepper({ label, each, n, step }) {
   return (
     <div className="stepper" role="group" aria-label={`${label}, ${money(each)} each`}>
-      <span>
-        {label} <small>{money(each)}</small>
+      <span className="stack-label">
+        {label}
+        <small>{money(each)}</small>
       </span>
       <button aria-label={`One less ${label.toLowerCase()}`} disabled={n === 0} onClick={() => step(-1)}>
         <Icon d="M3 7h8" />
@@ -293,17 +302,23 @@ function PracticeReadout({ grams, price, budget, setBudget, pricing, setPricing,
         <button
           className="chip-toggle"
           aria-pressed={extras.noodlesFixed}
+          aria-label={`Noodles charged ${money(NOODLE_PRICE)} each, not weighed`}
           onClick={() => setExtras((x) => ({ ...x, noodlesFixed: !x.noodlesFixed }))}
         >
-          Noodles {money(NOODLE_PRICE)} each
+          <span className="stack-label">
+            Noodles
+            <small>{money(NOODLE_PRICE)} each</small>
+          </span>
         </button>
       </div>
     </>
   )
 }
 
-function OrderChit({ order, shift }) {
+// The order ticket, like one placed online: each item with its weight. The count is what's in your bowl so far.
+function OrderChit({ order, shift, pieces }) {
   const low = shift.left <= 10
+  const count = (id) => pieces.filter((p) => p.id === id).length
   return (
     <div className="chit">
       <div className="shift-bar">
@@ -316,18 +331,21 @@ function OrderChit({ order, shift }) {
         </span>
       </div>
       <div className="shift-time" style={{ transform: `scaleX(${shift.left / SHIFT_SECONDS})` }} />
-      <p className="chit-who">{order.customer} wants</p>
-      <p className="chit-target">
-        About {order.grams}
-        <small>g</small>
-      </p>
-      <p className="chit-rules">
-        Under {money(order.budget)} · {order.pricing === 'flat' ? 'Flat-rate stall' : 'Priced by tier'}
-        {order.avoid && <> · No {TIER_NAME[order.avoid].toLowerCase()}</>}
-        {order.rice > 0 && <> · {order.rice} rice</>}
-        {order.egg > 0 && <> · {order.egg} scrambled egg{order.egg > 1 ? 's' : ''}</>}
-      </p>
-      {order.noodlesFixed && <p className="chit-hint">Noodles here are {money(NOODLE_PRICE)} each and aren't weighed.</p>}
+      <div className="ticket" aria-label={`Order for ${order.customer}`}>
+        <p className="ticket-head">
+          <b>{order.customer}</b>
+          <span>{order.pricing === 'flat' ? 'Flat-rate stall' : 'Priced by tier'}</span>
+        </p>
+        <ul>
+          {order.items.map((it) => (
+            <li key={it.id}>
+              <span>{BY_ID[it.id].name}</span>
+              <i>{count(it.id) > 0 && `×${count(it.id)} in bowl`}</i>
+              <b>{it.grams}g</b>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }
@@ -337,14 +355,28 @@ function OrdersIntro({ onStart }) {
     <section className="panel intro">
       <div>
         <h1>60-second shift</h1>
-        <p className="muted">Customers keep coming. Build each bowl by eye; the scale only comes out when you serve.</p>
+        <p className="muted">Online orders keep coming in. Fill each one by eye; the scale only comes out when you serve.</p>
       </div>
       <figure className="sample-chit" aria-label="Example order">
         <figcaption>Example order · Wei Ling</figcaption>
-        <p className="sample-target">
-          About 450<small>g</small>
-        </p>
-        <p className="sample-rules">Under S$15.00 · Priced by tier · No meat</p>
+        <ul className="sample-lines">
+          <li>
+            <span>Enoki</span>
+            <b>100g</b>
+          </li>
+          <li>
+            <span>Lotus root</span>
+            <b>60g</b>
+          </li>
+          <li>
+            <span>Luncheon meat</span>
+            <b>80g</b>
+          </li>
+          <li>
+            <span>Fish ball</span>
+            <b>40g</b>
+          </li>
+        </ul>
       </figure>
       <ol className="how">
         <li>
@@ -359,7 +391,7 @@ function OrdersIntro({ onStart }) {
         </li>
         <li>
           <span>
-            <b>Stay close.</b> Each bowl is +10, plus up to +100 for accuracy and a growing bonus for every bowl in a row within 5%. Over budget costs 25; breaking a rule leaves just the 10.
+            <b>Stay close.</b> Each item is judged on its own weight; anything not on the order counts against you. Each bowl is +10, plus up to +100 for accuracy and a growing bonus for every bowl in a row at 90% or better.
           </span>
         </li>
       </ol>
@@ -412,14 +444,15 @@ function RoundDone({ shift, onAgain, onBoard }) {
                 <b>{o.customer}</b> · {r.verdict}
               </span>
               <small>
-                {r.grams}g of {o.grams}g · {money(r.price)} of {money(o.budget)}
+                {r.lines.map((l) => `${BY_ID[l.id].name} ${l.got}/${l.grams}g`).join(' · ')}
+                {r.extra > 0 && ` · +${r.extra}g not ordered`}
               </small>
             </span>
             <b>+{r.points}</b>
           </li>
         ))}
       </ol>
-      {shift.served.length === 0 && <p className="muted">No bowls served this time.</p>}
+      {shift.served.length === 0 && <p className="muted">No bowls served this time</p>}
       {rank > 0 && (
         <form className="enter" onSubmit={submit}>
           <label htmlFor="name">That's #{rank} on the board. Your name?</label>
@@ -431,7 +464,7 @@ function RoundDone({ shift, onAgain, onBoard }) {
           </div>
         </form>
       )}
-      {top && rank === 0 && <p className="muted">Not quite top 10 this time.</p>}
+      {top && rank === 0 && <p className="muted">Not quite top 10 this time</p>}
       {err && <p className="error" role="alert">{err}</p>}
       <div className="end-actions">
         <button className="btn primary big" onClick={onAgain}>
@@ -454,10 +487,10 @@ function Board() {
   return (
     <section className="panel">
       <h1>Top 10</h1>
-      {!boardReady && <p className="muted">The shared board isn't set up on this copy of the game yet.</p>}
+      {!boardReady && <p className="muted">The shared board isn't set up on this copy of the game yet</p>}
       {err && <p className="error" role="alert">{err}</p>}
       {boardReady && !err && !top && <p className="muted">Loading…</p>}
-      {top?.length === 0 && <p className="muted">No scores yet. Work an Orders shift to claim #1.</p>}
+      {top?.length === 0 && <p className="muted">No scores yet · work an Orders shift to claim #1</p>}
       {top?.length > 0 && (
         <ol className="board">
           {top.map((r, i) => (

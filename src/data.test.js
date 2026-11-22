@@ -36,18 +36,19 @@ test('every tray fits the stall (max 10 bins) and ids are unique', () => {
   assert.equal(new Set(INGREDIENTS.map((i) => i.id)).size, INGREDIENTS.length)
 })
 
-test('shift scoring: accuracy, streak, budget, rules', () => {
-  const order = { grams: 120, budget: 10, pricing: 'flat', avoid: null }
-  const exact = scoreBowl(order, P('lotus', 15, 8)) // 120g
-  assert.deepEqual([exact.points, exact.verdict, exact.streak], [110, 'Spot on', 1])
-  assert.equal(scoreBowl(order, P('lotus', 15, 8), 1).points, 120) // second in a row: +10
-  assert.equal(scoreBowl(order, P('lotus', 15, 8), 3).points, 140) // fourth in a row: +30
-  const off = scoreBowl(order, P('lotus', 15, 6), 2) // 90g, 25% under
-  assert.deepEqual([off.points, off.verdict, off.streak], [10 + 12, 'Too little', 0])
-  assert.equal(scoreBowl(order, P('lotus', 15, 4)).points, 10) // 50% off: just the serve
-  assert.equal(scoreBowl({ ...order, budget: 1 }, P('lotus', 15, 8)).points, 85)
-  const broke = scoreBowl({ ...order, avoid: 'prem' }, [...P('lotus', 15, 7), ...P('crabstick', 15)])
-  assert.deepEqual([broke.points, broke.verdict, broke.streak], [10, 'Rule broken', 0])
+test('shift scoring: line by line against an itemized order', () => {
+  const order = { items: [{ id: 'lotus', grams: 60 }, { id: 'beef', grams: 40 }], pricing: 'tiered' }
+  const exact = scoreBowl(order, [...P('lotus', 15, 4), ...P('beef', 10, 4)])
+  assert.deepEqual([exact.points, exact.accuracy, exact.verdict, exact.streak], [110, 100, 'Spot on', 1])
+  assert.equal(scoreBowl(order, [...P('lotus', 15, 4), ...P('beef', 10, 4)], 2).points, 130) // third in a row: +20
+  // lotus right, beef missing entirely: lotus 100 x 60 + beef 0 x 40 → 60
+  const half = scoreBowl(order, P('lotus', 15, 4), 3)
+  assert.deepEqual([half.accuracy, half.points, half.streak, half.verdict], [60, 70, 0, 'Off'])
+  // 20% light on lotus (48g): 100 - (20 - 10) x 2 = 80 on that line → (80 x 60 + 100 x 40) / 100 = 88
+  assert.equal(scoreBowl(order, [{ id: 'lotus', g: 48 }, ...P('beef', 10, 4)]).accuracy, 88)
+  // 20g of something not ordered on a 100g order costs 20
+  const extra = scoreBowl(order, [...P('lotus', 15, 4), ...P('beef', 10, 4), ...P('corn', 20, 1)])
+  assert.deepEqual([extra.accuracy, extra.extra], [80, 20])
   assert.equal(scoreBowl(order, []).points, 0)
 })
 
@@ -61,11 +62,12 @@ test('each grab stays within its ingredient spread', () => {
   assert.equal(pickWeight('instant', () => 0.5), 65)
 })
 
-test('orders stay in range', () => {
-  for (let i = 0; i < 200; i++) {
+test('orders are 3 to 5 different items, each a sensible weight in 10g steps', () => {
+  for (let i = 0; i < 300; i++) {
     const o = makeOrder()
-    assert.ok(o.grams >= 250 && o.grams <= 600)
-    assert.ok(o.budget > (o.grams / 100) * 2.6)
+    assert.ok(o.items.length >= 3 && o.items.length <= 5)
+    assert.equal(new Set(o.items.map((it) => it.id)).size, o.items.length)
+    for (const it of o.items) assert.ok(it.grams % 10 === 0 && it.grams >= 10 && it.grams <= 200, `${it.id} ${it.grams}`)
   }
 })
 

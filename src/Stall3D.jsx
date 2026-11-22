@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import { BY_ID, INGREDIENTS, TIERS, rnd } from './data.js'
 import { Piece } from './pieces.jsx'
 import { countTo } from './count.js'
+import StallSkeleton from './StallSkeleton.jsx'
 
 // World layout (1 unit ≈ 10cm): bins at the back, the basket on its scale at the front.
 export const BASKET = new THREE.Vector3(0, 0.05, 1.75)
@@ -79,7 +80,7 @@ export default function Stall3D(props) {
         <Rig />
         <Scene {...props} mouse={mouse} labels={labels} onMiss={onMiss} pan={pan} />
       </Canvas>
-      {!ready && <p className="stage-loading stage-cover">Setting up the stall…</p>}
+      {!ready && <StallSkeleton className="stage-cover" />}
       {hint > 0 && (
         <p key={hint} className="drop-hint" role="status">
           Let go over the red basket to drop it in
@@ -92,11 +93,11 @@ export default function Stall3D(props) {
         <span
           key={t.id}
           ref={(el) => ((labels.current.signs ||= [])[k] = el)}
-          className={t.id === props.avoid ? 'section-sign banned' : 'section-sign'}
+          className="section-sign"
           data-tier={t.id}
           aria-hidden="true"
         >
-          {t.id === props.avoid ? `No ${t.name.toLowerCase()}` : t.name}
+          {t.name}
           <small>{sectionPrice(t, props)}</small>
         </span>
       ))}
@@ -105,7 +106,7 @@ export default function Stall3D(props) {
         <span
           key={ing.id}
           ref={(el) => (labels.current[i] = el)}
-          className={ing.tier === props.avoid ? 'bin-label banned' : 'bin-label'}
+          className={props.wanted?.includes(ing.id) ? 'bin-label wanted' : 'bin-label'}
           data-tier={ing.tier}
           aria-hidden="true"
         >
@@ -132,11 +133,12 @@ export default function Stall3D(props) {
         <button
           key={t.id}
           data-tier={t.id}
-          className={t.id === props.avoid ? 'banned' : undefined}
           style={{ flexGrow: t.count }}
           onClick={() => (pan.current.target = (t.from + t.to) / 2)}
         >
           {t.short}
+          {/* how many items on the current order live in this section */}
+          {wantedIn(t.id, props.wanted) > 0 && <em>{wantedIn(t.id, props.wanted)}</em>}
         </button>
       ))}
       <i ref={(el) => (labels.current.window = el)} className="aisle-window" />
@@ -144,6 +146,8 @@ export default function Stall3D(props) {
     </>
   )
 }
+
+const wantedIn = (tier, wanted) => (wanted ? INGREDIENTS.filter((i) => i.tier === tier && wanted.includes(i.id)).length : 0)
 
 const sectionPrice = (t, { pricing, noodlesFixed }) =>
   t.id === 'carb' && noodlesFixed
